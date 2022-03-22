@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { interval, Subscription } from 'rxjs';
 import { PlacesService } from './places.service';
@@ -10,7 +10,7 @@ import { Hotkey, HotkeysService } from 'angular2-hotkeys';
   templateUrl: './places.component.html',
   styleUrls: ['./places.component.css']
 })
-export class PlacesComponent implements OnInit {
+export class PlacesComponent implements OnInit, OnDestroy {
 
   public places:any[]=[];
   public myForm!: FormGroup;
@@ -36,22 +36,24 @@ export class PlacesComponent implements OnInit {
       debounce(() => interval(500))
     ).subscribe(()=>{
       this.placesService.getPlaces('',this.myForm.value.searchPlace).subscribe(res=>{
-        console.log(res);
         this.places=res.data;
       });
     });
-    this.getCountryFlag('IN');
   }
 
   public getCountryFlag(countryID:string){
     let countryFlag:any;
     this.placesService.getCountryFlag(countryID)
-    .subscribe(res=>{ console.log(res);
-     });
+      .subscribe(res=>{ countryFlag=res});
+     return countryFlag;
   }
 
   public setBgColorOnDisable(){
     this.elementRef.nativeElement.querySelector('#search').setAttribute('style',"background-color:rgb(233, 236, 239)");
+  }
+
+  ngOnDestroy(){
+    this.observable.unsubscribe();
   }
 
 }
