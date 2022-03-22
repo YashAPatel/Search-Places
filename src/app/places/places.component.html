@@ -1,0 +1,19 @@
+<div>
+    <form [formGroup]="myForm">
+        <input type="search"  id="search" (blur)="setBgColorOnDisable()" class="search form-control" type="text" placeholder="Start searching" formControlName="searchPlace"> 
+        <span class="shorcut">CTRL + /</span>
+    </form>
+    <br>
+    <table>
+        <tr>
+            <th>#</th>
+            <th>Place</th>
+            <th>Country</th>
+        </tr>
+        <tr *ngFor="let place of places;let i=index">
+            <td>{{i+1}}</td>
+            <td>{{place.city}}</td>
+            <td>{{place.country}}</td>
+        </tr>
+    </table> 
+</div>

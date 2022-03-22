@@ -3,7 +3,9 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  baseURL:"https://wft-geo-db.p.rapidapi.com/v1/geo/cities",
+  countryIdURL:"https://www.countryflags.io/"
 };
 
 /*
